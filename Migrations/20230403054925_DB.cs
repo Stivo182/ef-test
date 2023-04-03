@@ -5,7 +5,7 @@
 namespace ef_test.Migrations
 {
     /// <inheritdoc />
-    public partial class TPH : Migration
+    public partial class DB : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -33,29 +33,59 @@ namespace ef_test.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
                     CampaignId = table.Column<int>(type: "int", nullable: false),
-                    CampaignNavigationId = table.Column<int>(type: "int", nullable: false),
                     TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_CampaignScenes", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_CampaignScenes_Campaigns_CampaignNavigationId",
-                        column: x => x.CampaignNavigationId,
+                        name: "FK_CampaignScenes_Campaigns_CampaignId",
+                        column: x => x.CampaignId,
                         principalTable: "Campaigns",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
                 });
 
+            migrationBuilder.CreateTable(
+                name: "SceneObjects",
+                columns: table => new
+                {
+                    Id = table.Column<int>(type: "int", nullable: false)
+                        .Annotation("SqlServer:Identity", "1, 1"),
+                    Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
+                    SortOrder = table.Column<int>(type: "int", nullable: false),
+                    CampaignScenetId = table.Column<int>(type: "int", nullable: false),
+                    CampaignSceneNavigationId = table.Column<int>(type: "int", nullable: false),
+                    TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                },
+                constraints: table =>
+                {
+                    table.PrimaryKey("PK_SceneObjects", x => x.Id);
+                    table.ForeignKey(
+                        name: "FK_SceneObjects_CampaignScenes_CampaignSceneNavigationId",
+                        column: x => x.CampaignSceneNavigationId,
+                        principalTable: "CampaignScenes",
+                        principalColumn: "Id",
+                        onDelete: ReferentialAction.Cascade);
+                });
+
             migrationBuilder.CreateIndex(
-                name: "IX_CampaignScenes_CampaignNavigationId",
+                name: "IX_CampaignScenes_CampaignId",
                 table: "CampaignScenes",
-                column: "CampaignNavigationId");
+                column: "CampaignId");
+
+            migrationBuilder.CreateIndex(
+                name: "IX_SceneObjects_CampaignSceneNavigationId",
+                table: "SceneObjects",
+                column: "CampaignSceneNavigationId");
         }
 
         /// <inheritdoc />
         protected override void Down(MigrationBuilder migrationBuilder)
         {
+            migrationBuilder.DropTable(
+                name: "SceneObjects");
+
             migrationBuilder.DropTable(
                 name: "CampaignScenes");
 

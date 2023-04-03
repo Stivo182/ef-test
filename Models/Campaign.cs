@@ -7,9 +7,9 @@ using System.Threading.Tasks;
 
 namespace ef_test.Models
 {
-    public class CampaignModel: BaseEntity
+    public class Campaign: BaseEntity
     {
         public string Name { get; set; }
-        public IEnumerable<CampaignSceneModel> Scenes { get; set; } = new List<CampaignSceneModel>();
+        public IEnumerable<CampaignScene> Scenes { get; set; } = new List<CampaignScene>();
     }
 }

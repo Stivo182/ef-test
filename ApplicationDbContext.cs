@@ -22,8 +22,9 @@ namespace ef_test
             };
         }
 
-        public DbSet<CampaignModel> Campaigns { get; set; }
-        public DbSet<CampaignSceneModel> CampaignScenes { get; set; }
+        public DbSet<Models.Campaign> Campaigns { get; set; }
+        public DbSet<Models.CampaignScene> CampaignScenes { get; set; }
+        public DbSet<Models.SceneObject> SceneObjects { get; set; }
 
         protected override void OnModelCreating(ModelBuilder modelBuilder)
         {

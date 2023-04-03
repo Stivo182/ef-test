@@ -21,7 +21,7 @@ namespace ef_test.Migrations
 
             SqlServerModelBuilderExtensions.UseIdentityColumns(modelBuilder);
 
-            modelBuilder.Entity("ef_test.Models.CampaignModel", b =>
+            modelBuilder.Entity("ef_test.Models.Campaign", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -42,7 +42,7 @@ namespace ef_test.Migrations
                     b.ToTable("Campaigns");
                 });
 
-            modelBuilder.Entity("ef_test.Models.CampaignSceneModel", b =>
+            modelBuilder.Entity("ef_test.Models.CampaignScene", b =>
                 {
                     b.Property<int>("Id")
                         .ValueGeneratedOnAdd()
@@ -51,9 +51,6 @@ namespace ef_test.Migrations
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
                     b.Property<int>("CampaignId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CampaignNavigationId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -69,25 +66,73 @@ namespace ef_test.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CampaignNavigationId");
+                    b.HasIndex("CampaignId");
 
                     b.ToTable("CampaignScenes");
                 });
 
-            modelBuilder.Entity("ef_test.Models.CampaignSceneModel", b =>
+            modelBuilder.Entity("ef_test.Models.SceneObject", b =>
                 {
-                    b.HasOne("ef_test.Models.CampaignModel", "CampaignNavigation")
+                    b.Property<int>("Id")
+                        .ValueGeneratedOnAdd()
+                        .HasColumnType("int");
+
+                    SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
+
+                    b.Property<int>("CampaignSceneNavigationId")
+                        .HasColumnType("int");
+
+                    b.Property<int>("CampaignScenetId")
+                        .HasColumnType("int");
+
+                    b.Property<string>("Name")
+                        .IsRequired()
+                        .HasColumnType("nvarchar(max)");
+
+                    b.Property<int>("SortOrder")
+                        .HasColumnType("int");
+
+                    b.Property<byte[]>("TimeStamp")
+                        .IsRequired()
+                        .HasColumnType("varbinary(max)");
+
+                    b.HasKey("Id");
+
+                    b.HasIndex("CampaignSceneNavigationId");
+
+                    b.ToTable("SceneObjects");
+                });
+
+            modelBuilder.Entity("ef_test.Models.CampaignScene", b =>
+                {
+                    b.HasOne("ef_test.Models.Campaign", "CampaignNavigation")
                         .WithMany("Scenes")
-                        .HasForeignKey("CampaignNavigationId")
+                        .HasForeignKey("CampaignId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
                     b.Navigation("CampaignNavigation");
                 });
 
-            modelBuilder.Entity("ef_test.Models.CampaignModel", b =>
+            modelBuilder.Entity("ef_test.Models.SceneObject", b =>
+                {
+                    b.HasOne("ef_test.Models.CampaignScene", "CampaignSceneNavigation")
+                        .WithMany("SceneObjects")
+                        .HasForeignKey("CampaignSceneNavigationId")
+                        .OnDelete(DeleteBehavior.Cascade)
+                        .IsRequired();
+
+                    b.Navigation("CampaignSceneNavigation");
+                });
+
+            modelBuilder.Entity("ef_test.Models.Campaign", b =>
                 {
                     b.Navigation("Scenes");
+                });
+
+            modelBuilder.Entity("ef_test.Models.CampaignScene", b =>
+                {
+                    b.Navigation("SceneObjects");
                 });
 #pragma warning restore 612, 618
         }
