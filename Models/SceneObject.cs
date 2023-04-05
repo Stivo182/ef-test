@@ -10,7 +10,6 @@ namespace ef_test.Models
     {
         public string Name { get; set; } = "";
         public int SortOrder { get; set; } = 0;
-        public int CampaignScenetId { get; set; }
-        public CampaignScene CampaignSceneNavigation { get; set; }
+        public CampaignScene CampaignScene { get; set; }
     }
 }

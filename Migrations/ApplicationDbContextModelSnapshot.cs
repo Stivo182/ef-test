@@ -39,7 +39,7 @@ namespace ef_test.Migrations
 
                     b.HasKey("Id");
 
-                    b.ToTable("Campaigns");
+                    b.ToTable("Campaigns", (string)null);
                 });
 
             modelBuilder.Entity("ef_test.Models.CampaignScene", b =>
@@ -68,7 +68,7 @@ namespace ef_test.Migrations
 
                     b.HasIndex("CampaignId");
 
-                    b.ToTable("CampaignScenes");
+                    b.ToTable("CampaignScenes", (string)null);
                 });
 
             modelBuilder.Entity("ef_test.Models.SceneObject", b =>
@@ -79,10 +79,7 @@ namespace ef_test.Migrations
 
                     SqlServerPropertyBuilderExtensions.UseIdentityColumn(b.Property<int>("Id"));
 
-                    b.Property<int>("CampaignSceneNavigationId")
-                        .HasColumnType("int");
-
-                    b.Property<int>("CampaignScenetId")
+                    b.Property<int>("CampaignSceneId")
                         .HasColumnType("int");
 
                     b.Property<string>("Name")
@@ -98,31 +95,31 @@ namespace ef_test.Migrations
 
                     b.HasKey("Id");
 
-                    b.HasIndex("CampaignSceneNavigationId");
+                    b.HasIndex("CampaignSceneId");
 
-                    b.ToTable("SceneObjects");
+                    b.ToTable("SceneObjects", (string)null);
                 });
 
             modelBuilder.Entity("ef_test.Models.CampaignScene", b =>
                 {
-                    b.HasOne("ef_test.Models.Campaign", "CampaignNavigation")
+                    b.HasOne("ef_test.Models.Campaign", "Campaign")
                         .WithMany("Scenes")
                         .HasForeignKey("CampaignId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CampaignNavigation");
+                    b.Navigation("Campaign");
                 });
 
             modelBuilder.Entity("ef_test.Models.SceneObject", b =>
                 {
-                    b.HasOne("ef_test.Models.CampaignScene", "CampaignSceneNavigation")
+                    b.HasOne("ef_test.Models.CampaignScene", "CampaignScene")
                         .WithMany("SceneObjects")
-                        .HasForeignKey("CampaignSceneNavigationId")
+                        .HasForeignKey("CampaignSceneId")
                         .OnDelete(DeleteBehavior.Cascade)
                         .IsRequired();
 
-                    b.Navigation("CampaignSceneNavigation");
+                    b.Navigation("CampaignScene");
                 });
 
             modelBuilder.Entity("ef_test.Models.Campaign", b =>

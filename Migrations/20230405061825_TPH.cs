@@ -5,7 +5,7 @@
 namespace ef_test.Migrations
 {
     /// <inheritdoc />
-    public partial class DB : Migration
+    public partial class TPH : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -54,16 +54,15 @@ namespace ef_test.Migrations
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
-                    CampaignScenetId = table.Column<int>(type: "int", nullable: false),
-                    CampaignSceneNavigationId = table.Column<int>(type: "int", nullable: false),
+                    CampaignSceneId = table.Column<int>(type: "int", nullable: false),
                     TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
                 },
                 constraints: table =>
                 {
                     table.PrimaryKey("PK_SceneObjects", x => x.Id);
                     table.ForeignKey(
-                        name: "FK_SceneObjects_CampaignScenes_CampaignSceneNavigationId",
-                        column: x => x.CampaignSceneNavigationId,
+                        name: "FK_SceneObjects_CampaignScenes_CampaignSceneId",
+                        column: x => x.CampaignSceneId,
                         principalTable: "CampaignScenes",
                         principalColumn: "Id",
                         onDelete: ReferentialAction.Cascade);
@@ -75,9 +74,9 @@ namespace ef_test.Migrations
                 column: "CampaignId");
 
             migrationBuilder.CreateIndex(
-                name: "IX_SceneObjects_CampaignSceneNavigationId",
+                name: "IX_SceneObjects_CampaignSceneId",
                 table: "SceneObjects",
-                column: "CampaignSceneNavigationId");
+                column: "CampaignSceneId");
         }
 
         /// <inheritdoc />
