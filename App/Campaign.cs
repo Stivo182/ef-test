@@ -4,12 +4,10 @@ using System.Linq;
 using System.Text;
 using System.Threading.Tasks;
 
-namespace ef_test.Models
+namespace App
 {
-    public class SceneObject: BaseEntity
+    public class Campaign
     {
         public string Name { get; set; } = "";
-        public int SortOrder { get; set; } = 0;
-        public CampaignScene CampaignScene { get; set; }
     }
 }

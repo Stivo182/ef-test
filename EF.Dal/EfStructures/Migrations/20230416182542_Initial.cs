@@ -2,10 +2,10 @@
 
 #nullable disable
 
-namespace ef_test.Migrations
+namespace EF.Dal.EfStructures.Migrations
 {
     /// <inheritdoc />
-    public partial class TPH : Migration
+    public partial class Initial : Migration
     {
         /// <inheritdoc />
         protected override void Up(MigrationBuilder migrationBuilder)
@@ -17,7 +17,7 @@ namespace ef_test.Migrations
                     Id = table.Column<int>(type: "int", nullable: false)
                         .Annotation("SqlServer:Identity", "1, 1"),
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -33,7 +33,7 @@ namespace ef_test.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
                     CampaignId = table.Column<int>(type: "int", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
@@ -55,7 +55,7 @@ namespace ef_test.Migrations
                     Name = table.Column<string>(type: "nvarchar(max)", nullable: false),
                     SortOrder = table.Column<int>(type: "int", nullable: false),
                     CampaignSceneId = table.Column<int>(type: "int", nullable: false),
-                    TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: false)
+                    TimeStamp = table.Column<byte[]>(type: "varbinary(max)", nullable: true)
                 },
                 constraints: table =>
                 {
